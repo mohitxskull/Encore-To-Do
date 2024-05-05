@@ -4,7 +4,6 @@ import { hash } from '../lib/hash';
 import * as z from 'zod';
 import { ZodCheck } from '../lib/zod-check';
 import { db } from './lib/db';
-import { getAuthData } from '~encore/auth';
 
 const RouteReqZod = z.object({
   name: z.string().min(3).max(50, 'Name must be between 3 and 50 characters'),
@@ -36,12 +35,6 @@ export const signup = api(
   { expose: true, method: 'POST', path: '/auth/signup' },
   async (params: RouteReq): Promise<RouteRes> => {
     try {
-      const authData = getAuthData();
-
-      if (authData) {
-        throw APIError.permissionDenied('Already signed in');
-      }
-
       const paramsCheck = await ZodCheck(RouteReqZod, params);
 
       if (paramsCheck) {
