@@ -31,7 +31,7 @@ interface RouteRes {
   error?: any;
 }
 
-// Sign up route
+// Sign up route.
 export const signup = api(
   { expose: true, method: 'POST', path: '/auth/signup' },
   async (params: RouteReq): Promise<RouteRes> => {
