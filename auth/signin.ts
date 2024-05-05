@@ -64,6 +64,10 @@ export const signin = api(
         },
       };
     } catch (error) {
+      if (error instanceof APIError) {
+        throw error;
+      }
+    
       throw APIError.internal('Internal server error', error as Error);
     }
   }

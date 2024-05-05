@@ -67,6 +67,10 @@ export const signup = api(
         message: 'User created successfully',
       };
     } catch (error) {
+      if (error instanceof APIError) {
+        throw error;
+      }
+
       throw APIError.internal('Internal server error', error as Error);
     }
   }
